@@ -1,3 +1,25 @@
+<pre>
+<?php
+  if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $contact = [
+      "name" => $_POST["name"],
+      "phone_number" => $_POST["phone_number"],
+    ];
+    if(file_exists("contacts.json")){
+      $contacts = json_decode(file_get_contents("contacts.json"), true);
+    } else{
+      $contacts = [];
+    }
+    
+    $contacts[] = $contact;
+
+    file_put_contents("contacts.json", json_encode($contacts));
+
+    header("Location: index.php");
+  }
+?>
+</pre>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,7 +65,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+              <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Add Conctact</a>
@@ -59,7 +81,7 @@
             <div class="card">
               <div class="card-header">Add new Contact</div>
               <div class="card-body">
-                <form>
+                <form method="POST" action="add.php">
                   <div class="form-group row mt-2">
                     <label for="name" class="col-md-4 col-form-label text-md-rigth">Name</label>
                     <div class="col-md-6">
