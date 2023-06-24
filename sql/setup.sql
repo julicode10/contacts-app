@@ -10,4 +10,4 @@ CREATE TABLE contacts (
 );
 
 INSERT INTO contacts (name, phone_number) VALUES ("Pepe", "4653454");
-Failed to open file 'setup.sql'
+
